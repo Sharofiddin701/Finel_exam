@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option go_package = "genproto/schedule_service";
+
+package schedule_service;
+
+
+
+service TaskService {
+    rpc Create(CreateTask) returns (Task) {}
+    rpc GetByID(TaskPrimaryKey) returns (Task) {}
+    rpc GetList(GetListTaskRequest) returns (GetListTaskResponse) {}
+    rpc Update(UpdateTask) returns (Task) {}
+    rpc Delete(TaskPrimaryKey) returns (TaskEmpty) {}
+}
+
+
+message TaskEmpty{}
+
+message TaskPrimaryKey {
+    string id = 1;
+}
+
+message CreateTask {
+    string lesson_id = 1;
+    string label = 2;
+    string deadline =3;
+    int64 score = 4;
+}
+
+message Task {
+    string id = 1;
+    string lesson_id = 2;
+    string label = 3;
+    string deadline =4;
+    int64 score = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+message UpdateTask {
+    string id = 1;
+    string lesson_id = 2;
+    string label = 3;
+    string deadline =4;
+    int64 score = 5;
+}
+
+message GetListTaskRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListTaskResponse {
+    int64 count = 1;
+    repeated Task Tasks = 2;
+}

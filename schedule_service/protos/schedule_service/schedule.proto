@@ -1,0 +1,83 @@
+syntax = "proto3";
+import "lesson.proto";
+option go_package = "genproto/schedule_service";
+
+package schedule_service;
+
+
+
+service ScheduleService {
+    rpc Create(CreateSchedule) returns (Schedule) {}
+    rpc GetByID(SchedulePrimaryKey) returns (Schedule) {}
+    rpc GetList(GetListScheduleRequest) returns (GetListScheduleResponse) {}
+    rpc Update(UpdateSchedule) returns (Schedule) {}
+    rpc Delete(SchedulePrimaryKey) returns (ScheduleEmpty) {}
+    rpc GetScheduleReport(ScheduleReportRequest) returns (ScheduleReportResponse) {}
+    rpc GetScheduleMonthReport(ScheduleReportRequest) returns (ScheduleReportResponse) {}
+}
+
+
+message ScheduleEmpty{}
+
+message SchedulePrimaryKey {
+    string id = 1;
+}
+
+message CreateSchedule {
+    string journal_id = 1;
+    string start_time = 2;
+    string end_time =3;
+    string date = 4;
+}
+
+message Schedule {
+    string id = 1;
+    string journal_id = 2;
+    string start_time = 3;
+    string end_time =4;
+    string created_at = 5;
+    string updated_at = 6;
+    string date = 7;
+    Lesson Lesson = 8;
+}
+
+message UpdateSchedule {
+    string id = 1;
+    string journal_id = 2;
+    string start_time = 3;
+    string end_time =4;
+    string date = 5;
+
+
+}
+
+message GetListScheduleRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListScheduleResponse {
+    int64 count = 1;
+    repeated Schedule Schedules = 2;
+}
+
+message ScheduleReportRequest {
+    string branch_id = 1;
+}
+
+
+message ScheduleReport {
+    string group_id_unique =1;
+    string group_type =2;
+    int64 number_of_students =3;
+    string start_time =4;
+    string end_time =5;
+    string branch_name = 6;
+    string teacher_name = 7;
+    string support_teacher_name = 8;
+}
+
+message ScheduleReportResponse {
+    repeated ScheduleReport Schedules =1;
+}

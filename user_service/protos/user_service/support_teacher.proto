@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+
+
+service SupportTeacherService {
+    rpc Create(CreateSupportTeacher) returns (SupportTeacher) {}
+    rpc GetByID(SupportTeacherPrimaryKey) returns (SupportTeacher) {}
+    rpc GetList(GetListSupportTeacherRequest) returns (GetListSupportTeacherResponse) {}
+    rpc Update(UpdateSupportTeacher) returns (SupportTeacher) {}
+    rpc Delete(SupportTeacherPrimaryKey) returns (SupportTeacherEmpty) {}
+}
+
+
+message SupportTeacherEmpty{}
+
+message SupportTeacherPrimaryKey {
+    string id = 1;
+}
+
+message CreateSupportTeacher {
+    string full_name = 1;
+    string phone = 2;
+    string password = 3;
+    double salary = 4;
+    string ielts_score = 5;
+    string branch_id = 6;
+}
+
+message SupportTeacher {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    string login = 5;
+    double salary = 6;
+    string ielts_score = 7;
+    string branch_id = 8;
+    string role_id = 9;
+    string created_at = 10;
+    string updated_at = 11;
+}
+
+message UpdateSupportTeacher {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    string login = 5;
+    double salary = 6;
+    string ielts_score = 7;
+    string branch_id = 8;
+
+}
+
+message GetListSupportTeacherRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListSupportTeacherResponse {
+    int64 count = 1;
+    repeated SupportTeacher SupportTeachers = 2;
+}
+
+message SupportTeacherPanelRequest {
+    string support_teacher_id = 1;
+}

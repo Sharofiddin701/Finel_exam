@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+
+
+service StudentService {
+    rpc Create(CreateStudent) returns (Student) {}
+    rpc GetByID(StudentPrimaryKey) returns (Student) {}
+    rpc GetList(GetListStudentRequest) returns (GetListStudentResponse) {}
+    rpc Update(UpdateStudent) returns (Student) {}
+    rpc Delete(StudentPrimaryKey) returns (StudentEmpty) {}
+    rpc GetStudetReport(StudentReportRequest) returns (StudentReportResponse) {}
+}
+
+
+message StudentEmpty{}
+
+message StudentPrimaryKey {
+    string id = 1;
+}
+
+message CreateStudent {
+    string full_name = 1;
+    string phone = 2;
+    string password = 3;
+    string group_id = 4;
+    string branch_id = 5;
+}
+
+message Student {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    string group_id = 5;
+    string branch_id = 6;
+    string role_id = 7;
+    string created_at = 8;
+    string updated_at = 9;
+    string login = 10;
+}
+
+message UpdateStudent {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    string group_id = 5;
+    string branch_id = 6;
+
+}
+
+message GetListStudentRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListStudentResponse {
+    int64 count = 1;
+    repeated Student Students = 2;
+}
+message StudentReportRequest {
+    string branch_id = 1;
+}
+
+message StudentReportResponse {
+    repeated StudentReport Students = 1;
+}
+message StudentReport {
+    string full_name =1;
+    string phone =2;
+    double paid_sum =3;
+    int64 course_count =4;
+    double total_sum =5;
+}
+
+message StudentPanelRequest {
+    string id = 1;
+}
+

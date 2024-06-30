@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+
+
+service PaymentService {
+    rpc Create(CreatePayment) returns (Payment) {}
+    rpc GetByID(PaymentPrimaryKey) returns (Payment) {}
+    rpc GetList(GetListPaymentRequest) returns (GetListPaymentResponse) {}
+    rpc Update(UpdatePayment) returns (Payment) {}
+    rpc Delete(PaymentPrimaryKey) returns (PaymentEmpty) {}
+}
+
+
+message PaymentEmpty{}
+
+message PaymentPrimaryKey {
+    string id = 1;
+}
+
+message CreatePayment {
+    string student_id = 1;
+    string branch_id = 2;
+    double  paid_sum =3;
+    int64 course_count =4;
+}
+
+message Payment {
+    string id = 1;
+    string student_id = 2;
+    string branch_id = 3;
+    double  paid_sum =4;
+    double  total_sum = 5;
+    int64 course_count = 6;
+    string created_at = 7;
+    string updated_at = 8;
+}
+
+message UpdatePayment {
+    string id = 1;
+    string student_id = 2;
+    string branch_id = 3;
+    double  paid_sum =4;
+    double  total_sum = 5;
+    int64 course_count = 6;
+}
+
+message GetListPaymentRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListPaymentResponse {
+    int64 count = 1;
+    repeated Payment Payments = 2;
+}

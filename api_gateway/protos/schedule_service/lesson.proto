@@ -1,0 +1,53 @@
+syntax = "proto3";
+import "task.proto";
+option go_package = "genproto/schedule_service";
+
+package schedule_service;
+
+
+
+service LessonService {
+    rpc Create(CreateLesson) returns (Lesson) {}
+    rpc GetByID(LessonPrimaryKey) returns (Lesson) {}
+    rpc GetList(GetListLessonRequest) returns (GetListLessonResponse) {}
+    rpc Update(UpdateLesson) returns (Lesson) {}
+    rpc Delete(LessonPrimaryKey) returns (LessonEmpty) {}
+}
+
+
+message LessonEmpty{}
+
+message LessonPrimaryKey {
+    string id = 1;
+}
+
+message CreateLesson {
+    string schedule_id = 1;
+    string lesson = 2;
+}
+
+message Lesson {
+    string id = 1;
+    string schedule_id = 2;
+    string lesson = 3;
+    string created_at = 4;
+    string updated_at = 5;
+    repeated Task Tasks = 6;
+}
+
+message UpdateLesson {
+    string id = 1;
+    string schedule_id = 2;
+    string lesson = 3;
+}
+
+message GetListLessonRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListLessonResponse {
+    int64 count = 1;
+    repeated Lesson Lessons = 2;
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+
+option go_package = "genproto/schedule_service";
+
+package schedule_service;
+
+message StudentForRep {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    string group_id = 5;
+    string branch_id = 6;
+    string role_id = 7;
+    string created_at = 8;
+    string updated_at = 9;
+    string login = 10;
+}
+

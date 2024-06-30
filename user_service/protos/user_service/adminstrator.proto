@@ -1,0 +1,80 @@
+syntax = "proto3";
+import "support_teacher.proto";
+import "student.proto";
+import "payment.proto";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+
+
+service AdministratorService {
+    rpc Create(CreateAdministrator) returns (Administrator) {}
+    rpc GetByID(AdministratorPrimaryKey) returns (Administrator) {}
+    rpc GetList(GetListAdministratorRequest) returns (GetListAdministratorResponse) {}
+    rpc Update(UpdateAdministrator) returns (Administrator) {}
+    rpc Delete(AdministratorPrimaryKey) returns (AdministratorEmpty) {}
+}
+
+
+message AdministratorEmpty{}
+
+message AdministratorPrimaryKey {
+    string id = 1;
+}
+
+message CreateAdministrator {
+    string full_name = 1;
+    string phone = 2;
+    string password = 3;
+    double salary = 4;
+    string ielts_score = 5;
+    string branch_id = 6;
+}
+
+message Administrator {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    string login = 5;
+    double salary = 6;
+    string ielts_score = 7;
+    string branch_id = 8;
+    string role_id = 9;
+    string created_at = 10;
+    string updated_at = 11;
+}
+
+message UpdateAdministrator {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    string password = 4;
+    double salary = 5;
+    string ielts_score = 6;
+    string branch_id = 7;
+
+}
+
+message GetListAdministratorRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListAdministratorResponse {
+    int64 count = 1;
+    repeated Administrator Administrators = 2;
+}
+
+message AdministratorPanelRequest {
+    string id = 1;
+}
+
+message AdministratorPanelResponse {
+    repeated SupportTeacher SupportTeachers = 1;
+    repeated Student Students =2;
+    repeated Payment Payments = 3;
+}

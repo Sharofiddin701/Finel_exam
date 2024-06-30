@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option go_package = "genproto/schedule_service";
+
+package schedule_service;
+
+
+
+service ScoreService {
+    rpc Create(CreateScore) returns (Score) {}
+    rpc GetByID(ScorePrimaryKey) returns (Score) {}
+    rpc GetList(GetListScoreRequest) returns (GetListScoreResponse) {}
+    rpc Update(UpdateScore) returns (Score) {}
+    rpc Delete(ScorePrimaryKey) returns (ScoreEmpty) {}
+}
+
+
+message ScoreEmpty{}
+
+message ScorePrimaryKey {
+    string id = 1;
+}
+
+message CreateScore {
+    string task_id = 1;
+    string student_id = 2;
+    int64 score = 3;
+
+}
+
+message Score {
+    string id = 1;
+    string task_id = 2;
+    string student_id = 3;
+    int64 score =4;
+    string created_at = 5;
+    string updated_at = 6;
+
+}
+
+message UpdateScore {
+    string id = 1;
+    string task_id = 2;
+    string student_id = 3;
+    int64 score = 4;
+
+
+}
+
+message GetListScoreRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListScoreResponse {
+    int64 count = 1;
+    repeated Score Scores = 2;
+}

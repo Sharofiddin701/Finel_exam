@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+
+
+service ManagerService {
+    rpc Create(CreateManager) returns (Manager) {}
+    rpc GetByID(ManagerPrimaryKey) returns (Manager) {}
+    rpc GetList(GetListManagerRequest) returns (GetListManagerResponse) {}
+    rpc Update(UpdateManager) returns (Manager) {}
+    rpc Delete(ManagerPrimaryKey) returns (ManagerEmpty) {}
+}
+
+
+message ManagerEmpty{}
+
+message ManagerPrimaryKey {
+    string id = 1;
+}
+
+message CreateManager {
+    string full_name = 1;
+    string phone = 2;
+    double salary = 3;
+    string password = 4;
+    string branch_id = 5;
+}
+
+message Manager {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    double salary = 4;
+    string password = 5;
+    string login =6;
+    string branch_id = 7;
+    string role_id =8;
+    string created_at = 9;
+    string updated_at = 10;
+}
+
+message UpdateManager {
+    string id = 1;
+    string full_name = 2;
+    string phone = 3;
+    double salary = 4;
+    string password = 5;
+    string login = 6;
+    string branch_id = 7;
+
+}
+
+message GetListManagerRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+}
+
+message GetListManagerResponse {
+    int64 count = 1;
+    repeated Manager Managers = 2;
+}
